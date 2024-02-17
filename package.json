@@ -1,0 +1,102 @@
+{
+  "name": "videojs-contrib-quality-menu",
+  "version": "0.0.0",
+  "description": "Adds a button to the Video.js control bar for Video.js 8+",
+  "main": "dist/videojs-contrib-quality-menu.cjs.js",
+  "jsnext:main": "src/js/index.js",
+  "generator-videojs-plugin": {
+    "version": "7.2.4"
+  },
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "npm-run-all -p build:*",
+    "build:css": "sass src/plugin.scss dist/videojs-contrib-quality-menu.css -s compressed",
+    "build:js": "rollup -c scripts/rollup.config.js",
+    "build:lang": "vjslang --dir dist/lang",
+    "clean": "shx rm -rf ./dist ./test/dist",
+    "postclean": "shx mkdir -p ./dist ./test/dist",
+    "docs": "npm-run-all docs:*",
+    "docs:toc": "doctoc README.md",
+    "lint": "vjsstandard",
+    "server": "karma start scripts/karma.conf.js --singleRun=false --auto-watch",
+    "start": "npm-run-all -p server watch",
+    "pretest": "npm-run-all lint build",
+    "test": "karma start scripts/karma.conf.js",
+    "update-changelog": "conventional-changelog -p videojs -i CHANGELOG.md -s",
+    "version": "is-prerelease || npm run update-changelog && git add CHANGELOG.md",
+    "watch": "npm-run-all -p watch:*",
+    "watch:css": "npm run build:css -- -w",
+    "watch:js": "npm run build:js -- -w",
+    "prepublish": "not-in-install && npm run build && pkg-ok || in-install",
+    "posttest": "shx cat test/dist/coverage/text.txt"
+  },
+  "keywords": [
+    "videojs",
+    "videojs-plugin"
+  ],
+  "author": "Brightcove, Inc",
+  "license": "Apache-2.0",
+  "files": [
+    "CONTRIBUTING.md",
+    "dist/",
+    "docs/",
+    "index.html",
+    "scripts/",
+    "src/",
+    "test/"
+  ],
+  "dependencies": {
+    "global": "^4.4.0",
+    "video.js": "^8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "conventional-changelog-cli": "^4.1.0",
+    "conventional-changelog-videojs": "^3.0.2",
+    "doctoc": "^2.2.1",
+    "husky": "^7.0.4",
+    "in-publish": "^2.0.1",
+    "karma": "^6.4.2",
+    "lint-staged": "^11.2.6",
+    "not-prerelease": "^1.0.1",
+    "npm-merge-driver-install": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "pkg-ok": "^3.0.0",
+    "rollup": "^2.79.1",
+    "sass": "^1.70.0",
+    "shx": "^0.3.4",
+    "sinon": "^11.1.2",
+    "videojs-generate-karma-config": "^8.0.1",
+    "videojs-generate-rollup-config": "^7.0.2",
+    "videojs-languages": "^2.0.0",
+    "videojs-standard": "^9.0.1"
+  },
+  "style": "dist/videojs-contrib-quality-menu.css",
+  "videojs-plugin": {
+    "style": "dist/videojs-contrib-quality-menu.css",
+    "script": "dist/videojs-contrib-quality-menu.min.js"
+  },
+  "vjsstandard": {
+    "ignore": [
+      "dist",
+      "docs",
+      "test/dist"
+    ]
+  },
+  "module": "dist/videojs-contrib-quality-menu.es.js",
+  "lint-staged": {
+    "*.js": [
+      "vjsstandard --fix",
+      "git add"
+    ],
+    "README.md": [
+      "npm run docs:toc",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

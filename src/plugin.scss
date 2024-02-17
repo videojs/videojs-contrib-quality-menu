@@ -1,0 +1,124 @@
+// Sass for videojs-contrib-quality-menu
+.video-js {
+
+  // This class is added to the video.js element by the plugin by default.
+  &.vjs-quality-menu {
+    display: block;
+
+    .vjs-quality-menu-button:before {
+      font-family: VideoJS;
+      font-weight: normal;
+      font-style: normal;
+      content: "\f114";
+    }
+
+    @mixin vjs-quality() {
+      .vjs-quality-menu-button {
+        position: initial;
+
+        &:before {
+          content: none;
+        }
+
+        .vjs-icon-placeholder {
+          font-family: VideoJS;
+          font-weight: normal;
+          font-style: normal;
+
+          &:before {
+            content: "\f114";
+          }
+        }
+      }
+    }
+
+    &.vjs-v8,
+    &.vjs-v7,
+    &.vjs-v6 {
+      @include vjs-quality();
+    }
+
+    .vjs-quality-menu-button {
+      position: relative;
+
+      li {
+        text-transform: none;
+      }
+
+      &.vjs-menu-button-popup .vjs-menu .vjs-menu-content {
+        max-height: 25em;
+        width: 10em;
+        left: 0;
+      }
+    }
+
+    .vjs-menu-item .vjs-control-text {
+      position: absolute;
+    }
+
+    .vjs-quality-menu-wrapper {
+      position: relative;
+
+      li {
+        text-transform: none;
+      }
+
+      &.vjs-menu-wrapper-popup .vjs-menu .vjs-menu-content {
+        max-height: 25em;
+        width: 10em;
+        left: 0;
+      }
+    }
+
+    .vjs-quality-menu-item-sub-label {
+      font-size: 75%;
+      font-weight: bold;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      width: 4em;
+    }
+
+    .vjs-quality-menu-button-use-resolution {
+      .vjs-quality-menu-item-sub-label {
+        position: absolute;
+        right: 0;
+        text-align: center;
+        width: 4em;
+      }
+    }
+
+    .vjs-quality-menu-button-4K-flag:after,
+    .vjs-quality-menu-button-HD-flag:after {
+      background-color: #2B333F;
+      color: inherit;
+      content: "";
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 0.7em;
+      font-weight: 300;
+      height: 2.2em;
+      line-height: 2.2em;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      top: 0.5em;
+      width: 2.2em;
+      border-radius: 2em;
+      letter-spacing: 0.1em;
+    }
+
+    .vjs-quality-menu-button-HD-flag:after {
+      content: "HD";
+    }
+
+    .vjs-quality-menu-button-4K-flag:after {
+      content: "4K";
+    }
+
+    .vjs-quality-menu-button-waiting:before {
+      -webkit-animation: vjs-spinner-spin 1.1s cubic-bezier(0.6, 0.2, 0, 0.8) infinite;
+      animation: vjs-spinner-spin 1.1s cubic-bezier(0.6, 0.2, 0, 0.8) infinite;
+    }
+  }
+}
