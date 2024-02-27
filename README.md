@@ -18,7 +18,6 @@ videojs-contrib-quality-menu provides a menu button the the player's control bar
   - [`<script>` Tag](#script-tag)
   - [Browserify](#browserify)
   - [RequireJS/AMD](#requirejsamd)
-- [Known Issues](#known-issues)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -99,10 +98,6 @@ require(['video.js', 'videojs-contrib-quality-menu'], function(videojs) {
   player.qualityMenu();
 });
 ```
-
-## Known Issues
-
-Setting the source in the player config and building with single video template will cause the quality menu to not be initialized properly since the source will be set through a call to the videojs constructor which does not have access to the player or plugins. The source should be set by calling player.src(). This does not affect users of videocloud.
 
 ## License
 
