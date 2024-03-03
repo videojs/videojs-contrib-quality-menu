@@ -46,8 +46,7 @@
     "test/"
   ],
   "dependencies": {
-    "global": "^4.4.0",
-    "video.js": "^8"
+    "global": "^4.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.9",
@@ -66,10 +65,14 @@
     "sass": "^1.70.0",
     "shx": "^0.3.4",
     "sinon": "^11.1.2",
+    "video.js": "^8.10.0",
     "videojs-generate-karma-config": "^8.0.1",
     "videojs-generate-rollup-config": "^7.0.2",
     "videojs-languages": "^2.0.0",
     "videojs-standard": "^9.0.1"
+  },
+  "peerDependencies": {
+    "video.js": "^8"
   },
   "style": "dist/videojs-contrib-quality-menu.css",
   "videojs-plugin": {
