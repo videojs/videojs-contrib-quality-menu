@@ -43,7 +43,8 @@
     "index.html",
     "scripts/",
     "src/",
-    "test/"
+    "test/",
+    "lang/"
   ],
   "dependencies": {
     "global": "^4.4.0",
