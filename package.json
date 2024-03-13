@@ -27,7 +27,7 @@
     "watch": "npm-run-all -p watch:*",
     "watch:css": "npm run build:css -- -w",
     "watch:js": "npm run build:js -- -w",
-    "prepublish": "not-in-install && npm run build && pkg-ok || in-install",
+    "prepublishOnly": "npm run build",
     "posttest": "shx cat test/dist/coverage/text.txt"
   },
   "keywords": [
@@ -61,7 +61,6 @@
     "not-prerelease": "^1.0.1",
     "npm-merge-driver-install": "^2.0.2",
     "npm-run-all": "^4.1.5",
-    "pkg-ok": "^3.0.0",
     "rollup": "^2.79.1",
     "sass": "^1.70.0",
     "shx": "^0.3.4",
