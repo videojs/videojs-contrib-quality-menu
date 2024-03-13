@@ -1,6 +1,6 @@
 {
   "name": "videojs-contrib-quality-menu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds a button to the Video.js control bar for Video.js 8+",
   "main": "dist/videojs-contrib-quality-menu.cjs.js",
   "jsnext:main": "src/js/index.js",
