@@ -7,21 +7,16 @@ import QualityMenuItem from './quality-menu-item.js';
 const MenuButton = videojs.getComponent('MenuButton');
 
 /**
- * Checks whether all the QualityLevels in a QualityLevelList have resolution information
+ * Checks whether any of the QualityLevels in a QualityLevelList have resolution information
  *
  * @param {QualityLevelList} qualityLevelList
  *        The list of QualityLevels
  * @return {boolean}
- *         True if all levels have resolution information, false otherwise
+ *         True if any levels have resolution information, false if none have
  * @function hasResolutionInfo
  */
 const hasResolutionInfo = function(qualityLevelList) {
-  for (let i = 0, l = qualityLevelList.length; i < l; i++) {
-    if (!qualityLevelList[i].height) {
-      return false;
-    }
-  }
-  return true;
+  return Array.from(qualityLevelList).some((level) => level.height);
 };
 
 /**
@@ -68,6 +63,7 @@ class QualityMenuButton extends MenuButton {
     this.qualityLevels_ = player.qualityLevels();
 
     this.update = this.update.bind(this);
+
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
     this.changeHandler_ = () => {
       const defaultResolution = this.options_.defaultResolution;
@@ -188,6 +184,12 @@ class QualityMenuButton extends MenuButton {
       const level = this.qualityLevels_[i];
       const active = this.qualityLevels_.selectedIndex === i;
       const lines = level.height;
+
+      // Do not include an audio-only level
+      if (!lines) {
+        continue;
+      }
+
       let label;
 
       if (this.options_.resolutionLabelBitrates) {

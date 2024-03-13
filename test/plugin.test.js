@@ -171,6 +171,63 @@ QUnit.test('Groups QualityLevels by resolution by default', function(assert) {
   );
 });
 
+QUnit.test('Does not create menu items for audio-only levels', function(assert) {
+  this.player.qualityMenu();
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  assert.equal(button.items.length, 0, 'no menu items when empty quality level list');
+
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 500,
+    height: 500,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 600,
+    height: 600,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '3',
+    bandwidth: 19999,
+    width: 300,
+    height: 300,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '4',
+    bandwidth: 1111,
+    width: undefined,
+    height: undefined,
+    enabled: () => {}
+  });
+
+  assert.equal(button.items.length, 4, 'created 4 menu items');
+
+  assert.equal(button.items[0].controlText(), '600p', '600p');
+  assert.deepEqual(button.items[0].levels_, [1], '600p variants added to 600p menu item');
+
+  assert.equal(button.items[1].controlText(), '500p', '500p');
+  assert.deepEqual(button.items[1].levels_, [0], '500p variants added to 500p menu item');
+
+  assert.equal(button.items[2].controlText(), '300p', '300p');
+  assert.deepEqual(button.items[2].levels_, [2], '300p variants added to 300p menu item');
+
+  assert.equal(button.items[3].controlText(), 'Auto', 'Auto');
+  assert.deepEqual(
+    button.items[3].levels_, [0, 1, 2, 3],
+    'All variants added to Auto menu item'
+  );
+});
+
 QUnit.test('Dispalys bitrate along with resolution when resolutionLabelBitrates option', function(assert) {
   this.player.qualityMenu({ resolutionLabelBitrates: true });
   // Tick the clock forward enough to trigger the player to be "ready".
@@ -244,25 +301,18 @@ QUnit.test('Falls back to grouping by bitrate when no resolution info is availab
   levels.addQualityLevel({
     id: '1',
     bandwidth: 2000001,
-    width: 500,
-    height: 500,
     enabled: () => {}
   });
   levels.addQualityLevel({
     id: '2',
     bandwidth: 3000001,
-    width: 600,
-    height: 600,
     enabled: () => {}
   });
   levels.addQualityLevel({
     id: '3',
     bandwidth: 19999,
-    width: 300,
-    height: 300,
     enabled: () => {}
   });
-  // No resolution info available in this level.
   levels.addQualityLevel({
     id: '4',
     bandwidth: 1111,
