@@ -71,7 +71,7 @@
     "videojs-standard": "^9.0.1"
   },
   "peerDependencies": {
-    "video.js": "^8"
+    "video.js": "^8.5.3"
   },
   "style": "dist/videojs-contrib-quality-menu.css",
   "videojs-plugin": {
