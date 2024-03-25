@@ -5,39 +5,6 @@
   &.vjs-quality-menu {
     display: block;
 
-    .vjs-quality-menu-button:before {
-      font-family: VideoJS;
-      font-weight: normal;
-      font-style: normal;
-      content: "\f114";
-    }
-
-    @mixin vjs-quality() {
-      .vjs-quality-menu-button {
-        position: initial;
-
-        &:before {
-          content: none;
-        }
-
-        .vjs-icon-placeholder {
-          font-family: VideoJS;
-          font-weight: normal;
-          font-style: normal;
-
-          &:before {
-            content: "\f114";
-          }
-        }
-      }
-    }
-
-    &.vjs-v8,
-    &.vjs-v7,
-    &.vjs-v6 {
-      @include vjs-quality();
-    }
-
     .vjs-quality-menu-button {
       position: relative;
 

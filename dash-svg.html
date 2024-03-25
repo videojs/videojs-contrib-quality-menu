@@ -8,7 +8,7 @@
 </head>
 <body>
   <video-js id="player" class="vjs-fluid" controls>
-    <source src="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8" type="application/x-mpegURL">
+    <source src="http://dash.edgesuite.net/akamai/bbb_30fps/bbb_30fps.mpd" type="application/dash+xml">
   </video-js>
   <ul>
     <li><a href="/hls.html">HLS Demo</a></li>
@@ -21,6 +21,7 @@
   <script src="/dist/videojs-contrib-quality-menu.js"></script>
   <script>
     const player = videojs('player', {
+      experimentalSvgIcons: true,
       plugins: {
         qualityMenu: {
           defaultResolution: '360'
