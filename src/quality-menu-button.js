@@ -66,7 +66,8 @@ class QualityMenuButton extends MenuButton {
 
     this.qualityLevels_ = player.qualityLevels();
 
-    this.update = this.update.bind(this);
+    // Update is debounced because levels are generally added or removed in quick succession
+    this.update = videojs.fn.debounce(this.update.bind(this), 50);
 
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
     this.changeHandler_ = () => {
@@ -81,6 +82,7 @@ class QualityMenuButton extends MenuButton {
 
     this.on(this.qualityLevels_, 'addqualitylevel', this.update);
     this.on(this.qualityLevels_, 'removequalitylevel', this.update);
+    this.on(player, 'loadstart', this.update);
     this.on(this.qualityLevels_, 'change', this.handleQualityChange_);
     this.one(this.qualityLevels_, 'change', this.changeHandler_);
 
