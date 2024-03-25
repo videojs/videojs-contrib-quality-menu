@@ -59,6 +59,7 @@ class QualityMenuButton extends MenuButton {
 
     this.el_.setAttribute('aria-label', this.localize('Quality Levels'));
     this.controlText('Quality Levels');
+    this.setIcon('cog');
 
     this.qualityLevels_ = player.qualityLevels();
 
@@ -109,7 +110,7 @@ class QualityMenuButton extends MenuButton {
    * @method buildCSSClass
    */
   buildCSSClass() {
-    return `vjs-quality-menu-button vjs-icon-cog ${super.buildCSSClass()}`;
+    return `vjs-quality-menu-button ${super.buildCSSClass()}`;
   }
 
   /**
