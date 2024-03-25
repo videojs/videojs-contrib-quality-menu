@@ -22,24 +22,17 @@ const defaults = {
  *           A Video.js player.
  * @param    {Object} [options={}]
  *           An object of options left to the plugin author to define.
- * @return {Function} disposal function for re initialization
  */
 const onPlayerReady = (player, options) => {
   player.addClass('vjs-quality-menu');
 
   const controlBar = player.getChild('controlBar');
 
-  const button = controlBar.addChild(
+  controlBar.qualityMenuButton = controlBar.addChild(
     'QualityMenuButton',
     options,
     controlBar.children_.length - 2
   );
-
-  return function() {
-    player.removeClass('vjs-quality-menu');
-    controlBar.removeChild(button);
-    button.dispose();
-  };
 };
 
 /**
@@ -50,24 +43,26 @@ const onPlayerReady = (player, options) => {
  * @param {Object} [options] an object with plugin options
  */
 const initPlugin = function(player, options) {
-  if (typeof player.qualityLevels !== 'undefined') {
+  if (player.hasPlugin('qualityLevels')) {
     // call qualityLevels to initialize it in case it hasnt been initialized yet
     player.qualityLevels();
 
-    let disposeFn = () => {};
-
     player.ready(() => {
-      disposeFn = onPlayerReady(player, options);
-
-      player.on('loadstart', () => {
-        disposeFn();
-        disposeFn = onPlayerReady(player, options);
-      });
+      onPlayerReady(player, options);
     });
 
     // reinitialization is no-op for now
     player.qualityMenu = () => {};
     player.qualityMenu.VERSION = VERSION;
+
+    player.qualityMenu.dispose = () => {
+      console.log('disposing plugin');
+      player.removeClass('vjs-quality-menu');
+      player.controlBar.removeChild(player.controlBar.qualityMenuButton);
+      player.controlBar.qualityMenuButton.dispose();
+    };
+
+    player.on('dispose', player.qualityMenu.dispose);
   }
 };
 
