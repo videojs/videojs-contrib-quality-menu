@@ -109,7 +109,7 @@ class QualityMenuButton extends MenuButton {
    * @method buildCSSClass
    */
   buildCSSClass() {
-    return `vjs-quality-menu-button ${super.buildCSSClass()}`;
+    return `vjs-quality-menu-button vjs-icon-cog ${super.buildCSSClass()}`;
   }
 
   /**
