@@ -67,6 +67,8 @@ class QualityMenuButton extends MenuButton {
     this.qualityLevels_ = player.qualityLevels();
 
     this.update = this.update.bind(this);
+    this.hide_ = this.hide_.bind(this);
+    this.show_ = this.show_.bind(this);
 
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
     this.changeHandler_ = () => {
@@ -83,6 +85,8 @@ class QualityMenuButton extends MenuButton {
     this.on(this.qualityLevels_, 'removequalitylevel', this.update);
     this.on(this.qualityLevels_, 'change', this.handleQualityChange_);
     this.one(this.qualityLevels_, 'change', this.changeHandler_);
+    player.on('adstart', this.hide_);
+    player.on(['adend', 'adtimeout'], this.show_);
 
     this.update();
 
@@ -91,6 +95,8 @@ class QualityMenuButton extends MenuButton {
       this.off(this.qualityLevels_, 'removequalitylevel', this.update);
       this.off(this.qualityLevels_, 'change', this.handleQualityChange_);
       this.off(this.qualityLevels_, 'change', this.changeHandler_);
+      player.off('adstart', this.hide_);
+      player.off(['adend', 'adtimeout'], this.show_);
     });
   }
 
@@ -327,6 +333,24 @@ class QualityMenuButton extends MenuButton {
         this.autoMenuItem_.subLabel_.innerHTML = '';
       }
     }
+  }
+
+  /**
+   * Hide the quality menu button
+   *
+   * @method hideMenu_
+   */
+  hide_() {
+    this.addClass('vjs-hidden');
+  }
+
+  /**
+   * Show the quality menu button
+   *
+   * @method show_
+   */
+  show_() {
+    this.removeClass('vjs-hidden');
   }
 }
 
