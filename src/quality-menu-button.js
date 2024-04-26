@@ -68,7 +68,6 @@ class QualityMenuButton extends MenuButton {
 
     this.update = this.update.bind(this);
     this.hide = this.hide.bind(this);
-    this.show = this.show.bind(this);
 
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
     this.changeHandler_ = () => {
@@ -86,7 +85,7 @@ class QualityMenuButton extends MenuButton {
     this.on(this.qualityLevels_, 'change', this.handleQualityChange_);
     this.one(this.qualityLevels_, 'change', this.changeHandler_);
     player.on('adstart', this.hide);
-    player.on(['adend', 'adtimeout'], this.show);
+    player.on(['adend', 'adtimeout'], this.update);
 
     this.update();
 
@@ -96,7 +95,7 @@ class QualityMenuButton extends MenuButton {
       this.off(this.qualityLevels_, 'change', this.handleQualityChange_);
       this.off(this.qualityLevels_, 'change', this.changeHandler_);
       player.off('adstart', this.hide);
-      player.off(['adend', 'adtimeout'], this.show);
+      player.off(['adend', 'adtimeout'], this.update);
     });
   }
 
