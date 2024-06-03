@@ -587,6 +587,8 @@ QUnit.test('Passing default "HD/SD" quality level selects correct starting level
   });
 
   levels.selectedIndex_ = 3;
+  this.player.readyState = () => 1;
+
   videojs.trigger(levels, 'change');
 
   const items = button.items;
@@ -674,6 +676,8 @@ QUnit.test('Passing default resolution quality level selects correct starting le
   });
 
   levels.selectedIndex_ = 3;
+  this.player.readyState = () => 1;
+
   videojs.trigger(levels, 'change');
 
   const items = button.items;

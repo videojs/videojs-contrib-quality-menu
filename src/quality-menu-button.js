@@ -70,20 +70,13 @@ class QualityMenuButton extends MenuButton {
     this.hide = this.hide.bind(this);
 
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
-    this.changeHandler_ = () => {
-      const defaultResolution = this.options_.defaultResolution;
-
-      for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i].options_.label.indexOf(defaultResolution) !== -1) {
-          this.items[i].handleClick();
-        }
-      }
-    };
+    this.firstChangeHandler_ = this.firstChangeHandler_.bind(this);
+    this.enableDefaultResolution_ = this.enableDefaultResolution_.bind(this);
 
     this.on(this.qualityLevels_, 'addqualitylevel', this.update);
     this.on(this.qualityLevels_, 'removequalitylevel', this.update);
     this.on(this.qualityLevels_, 'change', this.handleQualityChange_);
-    this.one(this.qualityLevels_, 'change', this.changeHandler_);
+    this.one(this.qualityLevels_, 'change', this.firstChangeHandler_);
     player.on('adstart', this.hide);
     player.on(['adend', 'adtimeout'], this.update);
 
@@ -93,9 +86,10 @@ class QualityMenuButton extends MenuButton {
       this.off(this.qualityLevels_, 'addqualitylevel', this.update);
       this.off(this.qualityLevels_, 'removequalitylevel', this.update);
       this.off(this.qualityLevels_, 'change', this.handleQualityChange_);
-      this.off(this.qualityLevels_, 'change', this.changeHandler_);
+      this.off(this.qualityLevels_, 'change', this.firstChangeHandler_);
       player.off('adstart', this.hide);
       player.off(['adend', 'adtimeout'], this.update);
+      player.off('loadedmetadata', this.enableDefaultResolution_);
     });
   }
 
@@ -332,6 +326,37 @@ class QualityMenuButton extends MenuButton {
         this.autoMenuItem_.subLabel_.innerHTML = '';
       }
     }
+  }
+
+  /**
+   * Enable the `defaultResolution`, if specified
+   *
+   * @method enableDefaultResolution_
+   */
+  enableDefaultResolution_() {
+    const defaultResolution = this.options_.defaultResolution;
+
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].options_.label.indexOf(defaultResolution) !== -1) {
+        this.items[i].handleClick();
+      }
+    }
+  }
+
+  /**
+   * Handle the first change event in order to enable the `defaultResolution`, if specified
+   *
+   * @method firstChangeHandler_
+   */
+  firstChangeHandler_() {
+    // If we haven't loaded metadata yet and we expect it before playback is initiated, wait to perform the quality switch.
+    // Doing so before 'loadedmetadata' can result in cancelling requests for init segments required for the browser to fire 'loadedmetadata'.
+    if (this.player_.readyState() < 1 && this.player_.preload() !== 'none') {
+      this.player_.one('loadedmetadata', this.enableDefaultResolution_);
+      return;
+    }
+
+    this.enableDefaultResolution_();
   }
 }
 
