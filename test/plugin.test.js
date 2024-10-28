@@ -823,3 +823,155 @@ QUnit.test('Clicking menu item calls quality level enabled functions', function(
   assert.ok(levels[2].enabled, 'all levels enabled');
   assert.ok(levels[3].enabled, 'all levels enabled');
 });
+
+QUnit.test('Correct display of resolutions for horizontal video without measureShortEdge option', function(assert) {
+  this.player.qualityMenu();
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 1280,
+    height: 720,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 1920,
+    height: 1080,
+    enabled: () => {}
+  });
+
+  assert.equal(button.items.length, 3, 'created 3 menu items');
+
+  assert.equal(button.items[0].controlText(), '1080p', '1080p');
+  assert.deepEqual(button.items[0].levels_, [1], '1080p variants added to 1080p menu item');
+
+  assert.equal(button.items[1].controlText(), '720p', '720p');
+  assert.deepEqual(button.items[1].levels_, [0], '720p variants added to 720p menu item');
+
+  assert.equal(button.items[2].controlText(), 'Auto', 'Auto');
+  assert.deepEqual(
+    button.items[2].levels_, [0, 1],
+    'Auto variants added to Auto menu item'
+  );
+});
+
+QUnit.test('Correct display of resolutions for vertical video without measureShortEdge option', function(assert) {
+  this.player.qualityMenu();
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 720,
+    height: 1280,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 1080,
+    height: 1920,
+    enabled: () => {}
+  });
+
+  assert.equal(button.items.length, 3, 'created 3 menu items');
+
+  assert.equal(button.items[0].controlText(), '1920p', '1920p');
+  assert.deepEqual(button.items[0].levels_, [1], '1920p variants added to 1920p menu item');
+
+  assert.equal(button.items[1].controlText(), '1280p', '1280p');
+  assert.deepEqual(button.items[1].levels_, [0], '1280p variants added to 1280p menu item');
+
+  assert.equal(button.items[2].controlText(), 'Auto', 'Auto');
+  assert.deepEqual(
+    button.items[2].levels_, [0, 1],
+    'Auto variants added to Auto menu item'
+  );
+});
+
+QUnit.test('Correct display of resolutions for horizontal video when measureShortEdge option', function(assert) {
+  this.player.qualityMenu({ measureShortEdge: true });
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 1280,
+    height: 720,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 1920,
+    height: 1080,
+    enabled: () => {}
+  });
+
+  assert.equal(button.items.length, 3, 'created 3 menu items');
+
+  assert.equal(button.items[0].controlText(), '1080p', '1080p');
+  assert.deepEqual(button.items[0].levels_, [1], '1080p variants added to 1080p menu item');
+
+  assert.equal(button.items[1].controlText(), '720p', '720p');
+  assert.deepEqual(button.items[1].levels_, [0], '720p variants added to 720p menu item');
+
+  assert.equal(button.items[2].controlText(), 'Auto', 'Auto');
+  assert.deepEqual(
+    button.items[2].levels_, [0, 1],
+    'Auto variants added to Auto menu item'
+  );
+});
+
+QUnit.test('Correct display of resolutions for vertical video when measureShortEdge option', function(assert) {
+  this.player.qualityMenu({ measureShortEdge: true });
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 720,
+    height: 1280,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 1080,
+    height: 1920,
+    enabled: () => {}
+  });
+
+  assert.equal(button.items.length, 3, 'created 3 menu items');
+
+  assert.equal(button.items[0].controlText(), '1080p', '1080p');
+  assert.deepEqual(button.items[0].levels_, [1], '1080p variants added to 1080p menu item');
+
+  assert.equal(button.items[1].controlText(), '720p', '720p');
+  assert.deepEqual(button.items[1].levels_, [0], '720p variants added to 720p menu item');
+
+  assert.equal(button.items[2].controlText(), 'Auto', 'Auto');
+  assert.deepEqual(
+    button.items[2].levels_, [0, 1],
+    'Auto variants added to Auto menu item'
+  );
+});
