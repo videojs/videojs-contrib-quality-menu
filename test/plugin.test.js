@@ -57,6 +57,53 @@ QUnit.test('registers itself with video.js', function(assert) {
   );
 });
 
+QUnit.test('Hides and shows the component when an ad plays', function(assert) {
+  this.player.qualityMenu();
+
+  // Tick the clock forward enough to trigger the player to be "ready".
+  this.clock.tick(1);
+
+  const levels = this.player.qualityLevels();
+  const button = this.player.getChild('controlBar').getChild('QualityMenuButton');
+
+  assert.equal(button.items.length, 0, 'no menu items when empty quality level list');
+
+  // add multiple quality levels so button displays.
+  levels.addQualityLevel({
+    id: '1',
+    bandwidth: 2000001,
+    width: 500,
+    height: 500,
+    enabled: () => {}
+  });
+  levels.addQualityLevel({
+    id: '2',
+    bandwidth: 3000001,
+    width: 600,
+    height: 600,
+    enabled: () => {}
+  });
+
+  assert.notOk(
+    button.hasClass('vjs-hidden'),
+    'the plugin is displayed'
+  );
+
+  this.player.trigger('adstart');
+
+  assert.ok(
+    button.hasClass('vjs-hidden'),
+    'the plugin is hidden'
+  );
+
+  this.player.trigger('adend');
+
+  assert.notOk(
+    button.hasClass('vjs-hidden'),
+    'the plugin is no longer hidden'
+  );
+});
+
 QUnit.test('Groups QualityLevels by bitrate when useResolutionLabels is false', function(assert) {
   this.player.qualityMenu({ useResolutionLabels: false });
   // Tick the clock forward enough to trigger the player to be "ready".
@@ -540,6 +587,8 @@ QUnit.test('Passing default "HD/SD" quality level selects correct starting level
   });
 
   levels.selectedIndex_ = 3;
+  this.player.readyState = () => 1;
+
   videojs.trigger(levels, 'change');
 
   const items = button.items;
@@ -627,6 +676,8 @@ QUnit.test('Passing default resolution quality level selects correct starting le
   });
 
   levels.selectedIndex_ = 3;
+  this.player.readyState = () => 1;
+
   videojs.trigger(levels, 'change');
 
   const items = button.items;
