@@ -56,7 +56,7 @@ When `true`, the plugin will attach bitrate information to the resolution labels
 
 > Type: `boolean` Default: `false`
 
-When `true`, the plugin will use a short edge to display the resolution for vertical video.
+When `true`, the plugin will display the length of the shorter edge as the resolution, e.g. the width of a vertical video. Otherwise the height is used.
 
 ## Usage
 
