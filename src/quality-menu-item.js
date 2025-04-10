@@ -151,11 +151,12 @@ class QualityMenuItem extends MenuItem {
     }
 
     if (this.selected_) {
+      const hasSubLabel = this.options_.subLabel;
       this.addClass('vjs-selected');
       this.el_.setAttribute('aria-checked', 'true');
       // aria-checked isn't fully supported by browsers/screen readers,
       // so indicate selected state to screen reader in the control text.
-      this.controlText(this.localize('{1}, selected', this.localize(this.options_.controlText)));
+      this.controlText(this.localize(hasSubLabel ? 'selected,' : 'selected'));
 
       const controlBar = this.player().controlBar;
       const menuButton = controlBar.getChild('QualityMenuButton');
