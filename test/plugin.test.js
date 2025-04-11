@@ -151,7 +151,7 @@ QUnit.test('Groups QualityLevels by bitrate when useResolutionLabels is false', 
   assert.equal(button.items[1].controlText(), 'Standard Definition', 'SD element');
   assert.deepEqual(button.items[1].levels_, [2, 3], 'SD variants added to SD menu item');
 
-  assert.equal(button.items[2].controlText(), 'Auto', 'Auto element');
+  assert.equal(button.items[2].options_.label, 'Auto', 'Auto element');
   assert.deepEqual(
     button.items[2].levels_, [0, 1, 2, 3],
     'all variants added to Auto menu item'
@@ -199,19 +199,19 @@ QUnit.test('Groups QualityLevels by resolution by default', function(assert) {
 
   assert.equal(button.items.length, 5, 'created 5 menu items');
 
-  assert.equal(button.items[0].controlText(), '600p', '600p');
+  assert.equal(button.items[0].options_.label, '600p', '600p');
   assert.deepEqual(button.items[0].levels_, [1], '600p variants added to 600p menu item');
 
-  assert.equal(button.items[1].controlText(), '500p', '500p');
+  assert.equal(button.items[1].options_.label, '500p', '500p');
   assert.deepEqual(button.items[1].levels_, [0], '500p variants added to 500p menu item');
 
-  assert.equal(button.items[2].controlText(), '300p', '300p');
+  assert.equal(button.items[2].options_.label, '300p', '300p');
   assert.deepEqual(button.items[2].levels_, [2], '300p variants added to 300p menu item');
 
-  assert.equal(button.items[3].controlText(), '200p', '200p');
+  assert.equal(button.items[3].options_.label, '200p', '200p');
   assert.deepEqual(button.items[3].levels_, [3], '200p variants added to 200p menu item');
 
-  assert.equal(button.items[4].controlText(), 'Auto', 'Auto');
+  assert.equal(button.items[4].options_.label, 'Auto', 'Auto');
   assert.deepEqual(
     button.items[4].levels_, [0, 1, 2, 3],
     'Auto variants added to Auto menu item'
@@ -259,16 +259,16 @@ QUnit.test('Does not create menu items for audio-only levels', function(assert) 
 
   assert.equal(button.items.length, 4, 'created 4 menu items');
 
-  assert.equal(button.items[0].controlText(), '600p', '600p');
+  assert.equal(button.items[0].options_.label, '600p', '600p');
   assert.deepEqual(button.items[0].levels_, [1], '600p variants added to 600p menu item');
 
-  assert.equal(button.items[1].controlText(), '500p', '500p');
+  assert.equal(button.items[1].options_.label, '500p', '500p');
   assert.deepEqual(button.items[1].levels_, [0], '500p variants added to 500p menu item');
 
-  assert.equal(button.items[2].controlText(), '300p', '300p');
+  assert.equal(button.items[2].options_.label, '300p', '300p');
   assert.deepEqual(button.items[2].levels_, [2], '300p variants added to 300p menu item');
 
-  assert.equal(button.items[3].controlText(), 'Auto', 'Auto');
+  assert.equal(button.items[3].options_.label, 'Auto', 'Auto');
   assert.deepEqual(
     button.items[3].levels_, [0, 1, 2, 3],
     'All variants added to Auto menu item'
@@ -316,19 +316,19 @@ QUnit.test('Dispalys bitrate along with resolution when resolutionLabelBitrates 
 
   assert.equal(button.items.length, 5, 'created 5 menu items');
 
-  assert.equal(button.items[0].controlText(), '600p @ 3000 kbps', '600p @ 3000 kbps');
+  assert.equal(button.items[0].options_.label, '600p @ 3000 kbps', '600p @ 3000 kbps');
   assert.deepEqual(button.items[0].levels_, [1], '600p variants added to 600p menu item');
 
-  assert.equal(button.items[1].controlText(), '500p @ 2000 kbps', '500p @ 2000 kbps');
+  assert.equal(button.items[1].options_.label, '500p @ 2000 kbps', '500p @ 2000 kbps');
   assert.deepEqual(button.items[1].levels_, [0], '500p variants added to 500p menu item');
 
-  assert.equal(button.items[2].controlText(), '300p @ 20 kbps', '300p @ 20 kbps');
+  assert.equal(button.items[2].options_.label, '300p @ 20 kbps', '300p @ 20 kbps');
   assert.deepEqual(button.items[2].levels_, [2], '300p variants added to 300p menu item');
 
-  assert.equal(button.items[3].controlText(), '200p @ 1 kbps', '200p @ 1 kbps');
+  assert.equal(button.items[3].options_.label, '200p @ 1 kbps', '200p @ 1 kbps');
   assert.deepEqual(button.items[3].levels_, [3], '200p variants added to 200p menu item');
 
-  assert.equal(button.items[4].controlText(), 'Auto', 'Auto');
+  assert.equal(button.items[4].options_.label, 'Auto', 'Auto');
   assert.deepEqual(
     button.items[4].levels_, [0, 1, 2, 3],
     'Auto variants added to Auto menu item'
@@ -374,7 +374,7 @@ QUnit.test('Falls back to grouping by bitrate when no resolution info is availab
   assert.equal(button.items[1].controlText(), 'Standard Definition', 'SD');
   assert.deepEqual(button.items[1].levels_, [2, 3], 'SD variants added to SD menu item');
 
-  assert.equal(button.items[2].controlText(), 'Auto', 'Auto');
+  assert.equal(button.items[2].options_.label, 'Auto', 'Auto');
   assert.deepEqual(
     button.items[2].levels_, [0, 1, 2, 3],
     'Auto variants added to Auto menu item'

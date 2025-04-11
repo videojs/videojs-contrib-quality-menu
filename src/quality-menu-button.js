@@ -160,8 +160,8 @@ class QualityMenuButton extends MenuButton {
     // Add the Auto menu item
     const auto = new QualityMenuItem(this.player(), {
       levels: Array.prototype.map.call(this.qualityLevels_, (level, i) => i),
-      label: 'Auto',
-      controlText: 'Auto',
+      label: this.localize('Auto'),
+      controlText: '',
       active: true,
       selected: true,
       selectable: true
@@ -211,7 +211,7 @@ class QualityMenuButton extends MenuButton {
         groups[label] = {
           levels: [],
           label,
-          controlText: label,
+          controlText: '',
           subLabel
         };
 
