@@ -7,7 +7,8 @@ const defaults = {
   sdBitrateLimit: 2000000,
   useResolutionLabels: true,
   resolutionLabelBitrates: false,
-  defaultResolution: 'none'
+  defaultResolution: 'none',
+  measureShortEdge: false
 };
 
 /**

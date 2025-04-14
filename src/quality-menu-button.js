@@ -188,7 +188,9 @@ class QualityMenuButton extends MenuButton {
     for (let i = 0, l = this.qualityLevels_.length; i < l; i++) {
       const level = this.qualityLevels_[i];
       const active = this.qualityLevels_.selectedIndex === i;
-      const lines = level.height;
+      const lines = this.options_.measureShortEdge ?
+        Math.min(level.height, level.width) :
+        level.height;
 
       // Do not include an audio-only level
       if (!lines) {
