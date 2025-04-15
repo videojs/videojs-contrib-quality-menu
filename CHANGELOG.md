@@ -1,3 +1,9 @@
+## <small>1.0.4 (2025-04-15)</small>
+
+* fix: remove redundant controlText  from menu items (#18) ([c4e4681](https://github.com/videojs/videojs-contrib-quality-menu/commit/c4e4681)), closes [#18](https://github.com/videojs/videojs-contrib-quality-menu/issues/18)
+
+
+
 ## <small>1.0.3 (2024-06-05)</small>
 
 * fix: 'loadedmetadata' event sometimes does not fire as expected when using `defaultResolution` optio ([7c51f5c](https://github.com/videojs/videojs-contrib-quality-menu/commit/7c51f5c)), closes [#12](https://github.com/videojs/videojs-contrib-quality-menu/issues/12)
