@@ -66,7 +66,8 @@ class QualityMenuButton extends MenuButton {
 
     this.qualityLevels_ = player.qualityLevels();
 
-    this.update = this.update.bind(this);
+    // Update is debounced because levels are generally added or removed in quick succession
+    this.update = videojs.fn.debounce(this.update.bind(this), 50);
     this.hide = this.hide.bind(this);
 
     this.handleQualityChange_ = this.handleQualityChange_.bind(this);
@@ -75,6 +76,7 @@ class QualityMenuButton extends MenuButton {
 
     this.on(this.qualityLevels_, 'addqualitylevel', this.update);
     this.on(this.qualityLevels_, 'removequalitylevel', this.update);
+    this.on(player, 'loadstart', this.update);
     this.on(this.qualityLevels_, 'change', this.handleQualityChange_);
 
     // TODO: Remove this and the `defaultResolution` option once videojs/http-streaming supports comparable functionality
