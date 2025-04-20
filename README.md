@@ -7,13 +7,13 @@ videojs-contrib-quality-menu provides a menu button the the player's control bar
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Installation](#installation)
 - [Options](#options)
   - [`defaultResolution`](#defaultresolution)
   - [`sdBitrateLimit`](#sdbitratelimit)
   - [`useResolutionLabels`](#useresolutionlabels)
   - [`resolutionLabelBitrates`](#resolutionlabelbitrates)
+  - [`measureShortEdge`](#measureshortedge)
 - [Usage](#usage)
   - [`<script>` Tag](#script-tag)
   - [Browserify](#browserify)
@@ -51,6 +51,12 @@ When `true`, the plugin will attempt to categorize renditions by lines of horizo
 > Type: `boolean` Default: `false`
 
 When `true`, the plugin will attach bitrate information to the resolution labels (e.g. `720p @ 13806 kbps`). This option has no effect when `useResolutionLabels` is `false` or when resolution information is unavailable.
+
+### `measureShortEdge`
+
+> Type: `boolean` Default: `false`
+
+When `true`, the plugin will display the length of the shorter edge as the resolution, e.g. the width of a vertical video. Otherwise the height is used.
 
 ## Usage
 
